@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -78,7 +78,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>D:\3rd\glfw\glfw-3.3.4.bin.WIN64\include\GLFW;D:\3rd\glfw\glfw-3.3.4.bin.WIN64\include;D:\3rd\glad\include;$(IncludePath)</IncludePath>
+    <IncludePath>D:\3rd\glfw\glfw-3.3.4.bin.WIN64\include\GLFW;D:\3rd\glfw\glfw-3.3.4.bin.WIN64\include;D:\3rd\glad\include;D:\3rd\glm;D:\3rd\stb;$(IncludePath)</IncludePath>
     <LibraryPath>D:\3rd\glfw\glfw-3.3.4.bin.WIN64\lib-vc2019;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -145,8 +145,27 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="2_helloTriangle.cpp" />
+    <ClCompile Include="3_helloRectangle.cpp" />
+    <ClCompile Include="4_shader.cpp" />
+    <ClCompile Include="4_shader_two_location.cpp" />
+    <ClCompile Include="5_texture.cpp" />
+    <ClCompile Include="5_texture_two_texture_unit.cpp" />
     <ClCompile Include="glad.c" />
-    <ClCompile Include="helloWindow.cpp" />
+    <ClCompile Include="1_helloWindow.cpp" />
+    <ClCompile Include="3_test.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="shader_s.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="5.1.texture.fs" />
+    <None Include="5.1.texture.vs" />
+    <None Include="5.2.texture.fs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="awesomeface.png" />
+    <Image Include="container.jpg" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
