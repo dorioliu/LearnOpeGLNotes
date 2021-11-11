@@ -18,6 +18,15 @@
 //const unsigned int SCR_WIDTH = 800;
 //const unsigned int SCR_HEIGHT = 600;
 //
+//glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 3.0f);
+//glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
+//glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
+//
+//
+//float deltaTime = 0.0f; // 当前帧与上一帧的时间差
+//float lastFrame = 0.0f; // 上一帧的时间
+//
+//
 //int main()
 //{
 //    // glfw: initialize and configure
@@ -125,10 +134,10 @@
 //    glBindBuffer(GL_ARRAY_BUFFER, VBO);
 //    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 //
-//   /* glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-//    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);*/
+//    /* glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+//     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);*/
 //
-//    // position attribute
+//     // position attribute
 //    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
 //    glEnableVertexAttribArray(0);
 //    // color attribute
@@ -201,14 +210,19 @@
 //    // -----------
 //    while (!glfwWindowShouldClose(window))
 //    {
+//        float currentFrame = glfwGetTime();
+//        deltaTime = currentFrame - lastFrame;
+//        lastFrame = currentFrame;
+//
 //        // input
 //        // -----
 //        processInput(window);
 //
 //        // render
 //        // ------
+//      
 //        glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-//     
+//
 //        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);  // 清除颜色，以及深度缓冲，深度缓冲存储在Z片段中
 //
 //        //激活纹理单元0， 并将纹理对象1绑定到纹理单元0上
@@ -221,31 +235,41 @@
 //        // render container
 //        ourShader.use();
 //
-//       /* glm::mat4 model = glm::mat4(1.0f);
-//        model = glm::rotate(model, (float)glfwGetTime() * glm::radians(50.0f), glm::vec3(0.5f, 1.0f, 0.0f));
+//        /* glm::mat4 model = glm::mat4(1.0f);
+//         model = glm::rotate(model, (float)glfwGetTime() * glm::radians(50.0f), glm::vec3(0.5f, 1.0f, 0.0f));
 //
-//        int modelLoc1 = glGetUniformLocation(ourShader.ID, "model");
-//        glUniformMatrix4fv(modelLoc1, 1, GL_FALSE, glm::value_ptr(model));*/
+//         int modelLoc1 = glGetUniformLocation(ourShader.ID, "model");
+//         glUniformMatrix4fv(modelLoc1, 1, GL_FALSE, glm::value_ptr(model));*/
 //
-//        // create transformations
-//        glm::mat4 view = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
+//         // create transformations
+//        //glm::mat4 view = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
 //        glm::mat4 projection = glm::mat4(1.0f);
 //        projection = glm::perspective(glm::radians(60.0f), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
-//        view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
+//        //view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
 //        // pass transformation matrices to the shader
 //        ourShader.setMat4("projection", projection); // note: currently we set the projection matrix each frame, but since the projection matrix rarely changes it's often best practice to set it outside the main loop only once.
-//        ourShader.setMat4("view", view);
+//        //ourShader.setMat4("view", view);
 //
 //
 //        glBindVertexArray(VAO);
 //        for (unsigned int i = 0; i < 10; i++)
 //        {
+//           /* float radius = 10.0f;
+//            float camX = sin(glfwGetTime()) * radius;
+//            float camZ = cos(glfwGetTime()) * radius;
+//            glm::mat4 view = glm::mat4(1.0f);
+//            view = glm::lookAt(glm::vec3(camX, 0.0, camZ), glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 1.0, 0.0));*/
+//            glm::mat4 view = glm::mat4(1.0f);
+//            view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
+//            
+//            ourShader.setMat4("view", view);
+//
 //            glm::mat4 model = glm::mat4(1.0f);
 //            model = glm::translate(model, cubePositions[i]);
-//            float angle = 20.0f *(i+1);
-//            if(i%3 ==0)
-//                model = glm::rotate(model, (float)glfwGetTime() * glm::radians(angle), glm::vec3(1.0f, 0.3f, 0.5f));
-//            ourShader.setMat4("model", model);
+//            float angle = 20.0f * (i + 1);
+//            model = glm::rotate(model, glm::radians(angle), glm::vec3(1.0f, 0.3f, 0.5f));
+//            
+//          ourShader.setMat4("model", model);
 //
 //            glDrawArrays(GL_TRIANGLES, 0, 36);
 //        }
@@ -255,6 +279,8 @@
 //        // -------------------------------------------------------------------------------
 //        glfwSwapBuffers(window);
 //        glfwPollEvents();
+//
+//       
 //    }
 //
 //    // optional: de-allocate all resources once they've outlived their purpose:
@@ -275,6 +301,17 @@
 //{
 //    if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
 //        glfwSetWindowShouldClose(window, true);
+//
+//    float cameraSpeed = 2.5 * deltaTime;
+//    if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+//        cameraPos += cameraSpeed * cameraFront;
+//    if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+//        cameraPos -= cameraSpeed * cameraFront;
+//    if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+//        cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
+//    if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+//        cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
+//
 //}
 //
 //// glfw: whenever the window size changed (by OS or user resize) this callback function executes
