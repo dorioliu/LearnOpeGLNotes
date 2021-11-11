@@ -3,10 +3,13 @@
 //
 //#define STB_IMAGE_IMPLEMENTATION
 //#include <stb_image.h>
-//
 //#include "shader_s.h"
-//
 //#include <iostream>
+//
+//#include <glm/glm.hpp>
+//#include <glm/gtc/matrix_transform.hpp>
+//#include <glm/gtc/type_ptr.hpp>
+//
 //
 //void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 //void processInput(GLFWwindow* window);
@@ -46,22 +49,21 @@
 //
 //    // build and compile our shader zprogram
 //    // ------------------------------------
-//    Shader ourShader("5.1.texture.vs", "5.2.texture.fs");
+//    Shader ourShader("7.1.texture.vs", "7.1.texture.fs");
 //
 //    // set up vertex data (and buffer(s)) and configure vertex attributes
 //    // ------------------------------------------------------------------
 //    float vertices[] = {
 //        // positions          // colors           // texture coords
-//         0.5f,  0.5f, 0.0f,   1.0f, 0.0f, 0.0f,   2.0f, 2.0f, // top right
-//         0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f,   2.0f, 0.0f, // bottom right
+//         0.5f,  0.5f, 0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 1.0f, // top right
+//         0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f,   1.0f, 0.0f, // bottom right
 //        -0.5f, -0.5f, 0.0f,   0.0f, 0.0f, 1.0f,   0.0f, 0.0f, // bottom left
-//        -0.5f,  0.5f, 0.0f,   1.0f, 1.0f, 0.0f,   0.0f, 2.0f  // top left 
+//        -0.5f,  0.5f, 0.0f,   1.0f, 1.0f, 0.0f,   0.0f, 1.0f  // top left 
 //    };
 //    unsigned int indices[] = {
 //        0, 1, 3, // first triangle
 //        1, 2, 3  // second triangle
 //    };
-//
 //
 //
 //    unsigned int VBO, VAO, EBO;
@@ -141,7 +143,7 @@
 //
 //    // 将片段着色器中的纹理采样器的位置值设置在相应的纹理单元处
 //    // 不要忘记在设置uniform变量之前激活着色器程序！
-//    ourShader.use(); 
+//    ourShader.use();
 //    glUniform1i(glGetUniformLocation(ourShader.ID, "texture1"), 0); // 手动设置
 //    ourShader.setInt("texture2", 1); // 或者使用着色器类设置
 //
@@ -166,6 +168,27 @@
 //
 //        // render container
 //        ourShader.use();
+//
+//        glm::mat4 model =glm::mat4(1.0f) ;
+//        model = glm::rotate(model, glm::radians(-55.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+//        glm::mat4 view = glm::mat4(1.0f);
+//        // 注意，我们将矩阵向我们要进行移动场景的反方向移动。
+//        view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
+//        glm::mat4 projection = glm::mat4(1.0f);
+//        projection = glm::perspective(glm::radians(45.0f), (float)(SCR_WIDTH / SCR_HEIGHT), 0.1f, 100.0f);
+//
+//        int modelLoc1 = glGetUniformLocation(ourShader.ID, "model");
+//        glUniformMatrix4fv(modelLoc1, 1, GL_FALSE, glm::value_ptr(model));
+//
+//        int modelLoc2 = glGetUniformLocation(ourShader.ID, "view");
+//        glUniformMatrix4fv(modelLoc2, 1, GL_FALSE, glm::value_ptr(view));
+//
+//        int modelLoc3 = glGetUniformLocation(ourShader.ID, "projection");
+//        glUniformMatrix4fv(modelLoc3, 1, GL_FALSE, glm::value_ptr(projection));
+//
+//
+//        //std::cout << " time" << (float)glfwGetTime() << std::endl;
+//
 //        glBindVertexArray(VAO);
 //        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 //

@@ -42,6 +42,15 @@
     <ClCompile Include="5_texture_two_texture_unit.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="6_transform.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="7_coordinate.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="7.2_cube.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="shader_s.h">
@@ -56,6 +65,15 @@
       <Filter>资源文件</Filter>
     </None>
     <None Include="5.2.texture.fs">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="6.1.texture.vs">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="7.1.texture.fs">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="7.1.texture.vs">
       <Filter>资源文件</Filter>
     </None>
   </ItemGroup>

@@ -151,6 +151,9 @@
     <ClCompile Include="4_shader_two_location.cpp" />
     <ClCompile Include="5_texture.cpp" />
     <ClCompile Include="5_texture_two_texture_unit.cpp" />
+    <ClCompile Include="6_transform.cpp" />
+    <ClCompile Include="7.2_cube.cpp" />
+    <ClCompile Include="7_coordinate.cpp" />
     <ClCompile Include="glad.c" />
     <ClCompile Include="1_helloWindow.cpp" />
     <ClCompile Include="3_test.cpp" />
@@ -162,6 +165,9 @@
     <None Include="5.1.texture.fs" />
     <None Include="5.1.texture.vs" />
     <None Include="5.2.texture.fs" />
+    <None Include="6.1.texture.vs" />
+    <None Include="7.1.texture.fs" />
+    <None Include="7.1.texture.vs" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="awesomeface.png" />
